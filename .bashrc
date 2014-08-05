@@ -62,6 +62,10 @@ alias collectstatic='./manage.py collectstatic --settings=settings.local'
 # https://github.com/soimort/google-translate-cli
 alias tra="translate {en=lt}"
 
+# Use cat with colors pyhton-pygmentize should be installed.
+alias catc='pygmentize -g '
+
+
 ###########
 # EXPORTS #
 ###########
@@ -82,13 +86,6 @@ export TERM=xterm-256color
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
-
-# Use cat with colors pyhton-pygmentize should be installed.
-catc(){
-    cat "$@" > /tmp/.tmp
-    pygmentize -g /tmp/.tmp
-    rm /tmp/.tmp
-}
 
 ###########
 # SOURCES #
