@@ -58,12 +58,17 @@ alias speedtest='wget --output-document=/dev/null http://speedtest.wdc01.softlay
 alias shell='./manage.py shell_plus --settings=settings.local'
 alias runserver='./manage.py runserver 192.168.1.29:8000 --settings=settings.local'
 alias collectstatic='./manage.py collectstatic --settings=settings.local'
+
 # Alias to translate google
 # https://github.com/soimort/google-translate-cli
 alias tra="translate {en=lt}"
 
 # Use cat with colors pyhton-pygmentize should be installed.
 alias catc='pygmentize -g '
+
+# Delete all pyc
+alias remove_pyc='find . -name "*.pyc" -exec rm -rf {} \;'
+
 
 
 ###########
