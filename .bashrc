@@ -67,7 +67,10 @@ alias tra="translate {en=lt}"
 alias catc='pygmentize -g '
 
 # Delete all pyc
-alias remove_pyc='find . -name "*.pyc" -exec rm -rf {} \;'
+alias removepyc='find . -name "*.pyc" -exec rm -rf {} \;'
+
+# Run SimpleHttpServer
+alias simpleserver='python -m SimpleHTTPServer 8000'
 
 
 
