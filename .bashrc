@@ -70,7 +70,7 @@ alias catc='pygmentize -g '
 alias removepyc='find . -name "*.pyc" -exec rm -rf {} \;'
 
 # Run SimpleHttpServer
-alias simpleserver='python -m SimpleHTTPServer 8000'
+alias simpleserver='python -m SimpleHTTPServer 8070'
 
 
 
