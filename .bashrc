@@ -115,7 +115,7 @@ GIT_PS1_SHOWUPSTREAM="auto"
 
 HOSTNAME=$(hostname)
 
-PS1='${debian_chroot:+($debian_chroot)}\[\033[32m\]\u@\e[36mzatan\[\033[01;32m\] -> \[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
+PS1='${debian_chroot:+($debian_chroot)}\[\033[1;32m\]\u@\[\033[1;36m\]zatan \[\033[01;32m\]-> \[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
 
 HOSTNAME=$(hostname)
 if [ $HOSTNAME != "edvinas-pc" ] && [ $HOSTNAME != "ed" ]; then
