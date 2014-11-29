@@ -73,6 +73,9 @@ alias removepyc='find . -name "*.pyc" -exec rm -rf {} \;'
 # Run SimpleHttpServer
 alias simpleserver='python -m SimpleHTTPServer 8070'
 
+# Display sizes
+alias doh='du -h|sort -hr'
+
 
 
 ###########
@@ -100,7 +103,7 @@ fi
 # SOURCES #
 ###########
 # Source to be able to user viritualenvwrapper
-source /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper.sh > /dev/null 2>&1 || true
 # To work with git display branch status
 source /etc/bash_completion.d/git-prompt
 
@@ -111,10 +114,12 @@ GIT_PS1_SHOWUNTRACKEDFILES='1'
 GIT_PS1_SHOWCOLORHINTS=true
 GIT_PS1_SHOWUPSTREAM="auto"
 
-PS1='${debian_chroot:+($debian_chroot)}\[\033[32m\]\u@ed\[\033[01;32m\]:\[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
+HOSTNAME=$(hostname)
+
+PS1='${debian_chroot:+($debian_chroot)}\[\033[1;32m\]\u@\[\033[1;36m\]zatan \[\033[01;32m\]-> \[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
 
 HOSTNAME=$(hostname)
-if [ $HOSTNAME != "edvinas-pc" ]; then
+if [ $HOSTNAME != "edvinas-pc" ] && [ $HOSTNAME != "ed" ]; then
     # Bold for servers
     PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u@Linode742584\[\033[01;32m\]:\[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
 fi
