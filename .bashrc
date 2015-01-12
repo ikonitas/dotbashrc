@@ -50,14 +50,19 @@ alias l='ls -CF'
 alias ll='ls -l'
 # Show active network listeners
 alias netlisteners='lsof -i -P | grep LISTEN'
+
 alias ack='ACK_PAGER_COLOR="less -x4SRFX" /usr/bin/ack-grep --color-filename=yellow --color-lineno=green --color-match=red --ignore-dir=static --ignore-dir=migrations --ignore-dir=.git --ignore-dir=media  --ignore-dir=whoosh --ignore-dir=xapian --ignore-dir=docs --ignore-file=is:requirements.txt --ignore-file=is:pylint.report --type-set=DUMB="*.pyc" --nobreak --noenv -i -Q'
+
 # Password generator
 alias passwdgen='dd if=/dev/random bs=16 count=1 2>/dev/null | base64 | sed 's/=//g''
 # SpeedTest
+
 alias speedtest='wget --output-document=/dev/null http://speedtest.wdc01.softlayer.com/downloads/test500.zip'
 
 alias shell='./manage.py shell_plus --settings=settings.local'
+
 alias runserver='./manage.py runserver 192.168.1.29:8000 --settings=settings.local'
+
 alias collectstatic='./manage.py collectstatic --settings=settings.local'
 
 # Alias to translate google
@@ -76,7 +81,8 @@ alias server='python -m SimpleHTTPServer 8070'
 # Display sizes
 alias doh='du -h|sort -hr'
 
-
+# Switch to www-data user
+alias www-data='sudo su - www-data'
 
 ###########
 # EXPORTS #
@@ -116,10 +122,10 @@ GIT_PS1_SHOWUPSTREAM="auto"
 
 # Set PS1
 HOSTNAME=$(hostname)
-PS1='${debian_chroot:+($debian_chroot)}\[\033[1;32m\]\u@\[\033[1;36m\]zatan \[\033[01;32m\]-> \[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
+PS1='${debian_chroot:+($debian_chroot)}\[\033[1;32m\]\u@\[\033[1;36m\]\h \[\033[01;32m\]-> \[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
 if [ $HOSTNAME != "edvinas-pc" ] && [ $HOSTNAME != "ed" ]; then
     # Bold for servers
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u@Linode742584\[\033[01;32m\]:\[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u@\h\[\033[01;32m\]:\[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
 fi
 
 # Set title
@@ -130,5 +136,4 @@ xterm*|rxvt*)
 *)
     ;;
 esac
-
 
