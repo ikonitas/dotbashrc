@@ -110,7 +110,9 @@ fi
 ###########
 # Source to be able to user viritualenvwrapper
 source /usr/local/bin/virtualenvwrapper.sh > /dev/null 2>&1 || true
-# To work with git display branch status
+
+# To work with git display branch status for Ubuntu 12.04 or less
+# /etc/bash_completion.d/git
 source /etc/bash_completion.d/git-prompt
 
 color_prompt=yes
