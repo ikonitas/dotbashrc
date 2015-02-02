@@ -51,7 +51,7 @@ alias ll='ls -l'
 # Show active network listeners
 alias netlisteners='lsof -i -P | grep LISTEN'
 
-alias ack='ACK_PAGER_COLOR="less -x4SRFX" /usr/bin/ack-grep --color-filename=yellow --color-lineno=green --color-match=red --ignore-dir=static --ignore-dir=migrations --ignore-dir=.git --ignore-dir=media  --ignore-dir=whoosh --ignore-dir=xapian --ignore-dir=docs --ignore-file=is:requirements.txt --ignore-file=is:pylint.report --type-set=DUMB="*.pyc" --nobreak --noenv -i -Q'
+alias ack='ACK_PAGER_COLOR="less -x4SRFX" /usr/bin/ack-grep --color-filename=yellow --color-lineno=green --color-match=red --ignore-dir=migrations --ignore-dir=.git --ignore-dir=media  --ignore-dir=whoosh --ignore-dir=xapian --ignore-dir=docs --ignore-file=is:requirements.txt --ignore-file=is:pylint.report --type-set=DUMB="*.pyc" --nobreak --noenv -i -Q'
 
 # Password generator
 alias passwdgen='dd if=/dev/random bs=16 count=1 2>/dev/null | base64 | sed 's/=//g''
@@ -94,7 +94,7 @@ export WORKON_HOME=/var/envs/
 # Projects home 
 export PROJECT_HOME=/var/www
 # Grep options
-export GREP_OPTIONS='--exclude-dir=.git --exclude-dir=xapian --exclude-dir=media --exclude-dir=static --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
+export GREP_OPTIONS='--exclude-dir=.git --exclude-dir=xapian --exclude-dir=media --exclude-dir=cache --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
 # Virtualenvwrapper bin directory
 export VIRTUALENVWRAPPER_HOOK_DIR=/var/envs/bin
 # To use 256 colors
@@ -138,4 +138,3 @@ xterm*|rxvt*)
 *)
     ;;
 esac
-
