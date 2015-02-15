@@ -138,3 +138,11 @@ xterm*|rxvt*)
 *)
     ;;
 esac
+
+
+# Export display if it's not set.
+if ! [ "$DISPLAY" ]
+then
+    export export DISPLAY=localhost:0.0
+fi
+
