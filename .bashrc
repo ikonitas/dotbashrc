@@ -88,7 +88,7 @@ export WORKON_HOME=/var/envs/
 # Projects home 
 export PROJECT_HOME=/var/www
 # Grep options
-export GREP_OPTIONS='--exclude-dir=.git --exclude-dir=xapian --exclude-dir=media --exclude-dir=static --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
+export GREP_OPTIONS='--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=logs --exclude-dir=xapian --exclude-dir=media --exclude-dir=static --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
 # Virtualenvwrapper bin directory
 export VIRTUALENVWRAPPER_HOOK_DIR=/var/envs/bin
 # To use 256 colors
@@ -131,5 +131,3 @@ xterm*|rxvt*)
 *)
     ;;
 esac
-
-
