@@ -84,6 +84,10 @@ alias duh='du -h|sort -hr'
 # Switch to www-data user
 alias www-data='sudo su - www-data'
 
+# Switch to any user
+alias suweb='sudo su - '
+
+
 ###########
 # EXPORTS #
 ###########
