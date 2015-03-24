@@ -146,3 +146,6 @@ then
     export export DISPLAY=localhost:0.0
 fi
 
+
+# Default django settings moduke
+export DJANGO_SETTINGS_MODULE=''
