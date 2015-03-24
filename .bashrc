@@ -51,7 +51,7 @@ alias ll='ls -l'
 # Show active network listeners
 alias netlisteners='lsof -i -P | grep LISTEN'
 
-alias ack='ACK_PAGER_COLOR="less -x4SRFX" /usr/bin/ack-grep --color-filename=yellow --color-lineno=green --color-match=red --ignore-dir=migrations --ignore-dir=.git --ignore-dir=media  --ignore-dir=whoosh --ignore-dir=xapian --ignore-dir=docs --ignore-file=is:requirements.txt --ignore-file=is:pylint.report --type-set=DUMB="*.pyc" --nobreak --noenv -i -Q'
+alias ack='ACK_PAGER_COLOR="less -x4SRFX" /usr/bin/ack-grep --color-filename=yellow --color-lineno=green --color-match=red --ignore-dir=migrations --ignore-dir=.git --ignore-dir=media  --ignore-dir=whoosh --ignore-dir=xapian --ignore-dir=static --ignore-dir=docs --ignore-file=is:requirements.txt --ignore-file=is:pylint.report --type-set=DUMB="*.pyc" --nobreak --noenv -i -Q'
 
 # Password generator
 alias passwdgen='dd if=/dev/random bs=16 count=1 2>/dev/null | base64 | sed 's/=//g''
@@ -83,6 +83,10 @@ alias duh='du -h|sort -hr'
 
 # Switch to www-data user
 alias www-data='sudo su - www-data'
+
+# Switch to any user
+alias suweb='sudo su - '
+
 
 ###########
 # EXPORTS #
@@ -125,7 +129,7 @@ GIT_PS1_SHOWUPSTREAM="auto"
 # Set PS1
 HOSTNAME=$(hostname)
 PS1='${debian_chroot:+($debian_chroot)}\[\033[1;32m\]\u@\[\033[1;36m\]\h \[\033[01;32m\]-> \[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
-if [ $HOSTNAME != "zatan" ] && [ $HOSTNAME != "ed" ]; then
+if [ $HOSTNAME != "zatan" ] && [ $HOSTNAME != "ed" ] && [ $HOSTNAME != "edvinas-Z97-HD3" ]; then
     # Bold for servers
     PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u@\h\[\033[01;32m\]:\[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
 fi
