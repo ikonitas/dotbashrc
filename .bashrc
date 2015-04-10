@@ -150,3 +150,8 @@ then
     export export DISPLAY=localhost:0.0
 fi
 
+
+# Function to open google-search from terminal with passed argument.
+function chrome-search(){
+ google-chrome http://www.google.co.uk/search?q="$1"
+}
