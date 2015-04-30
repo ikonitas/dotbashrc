@@ -7,7 +7,7 @@
 Setup
 -----
 
-Install translate-shell
+Install ``translate-shell``
 
 https://github.com/soimort/translate-shell
 
