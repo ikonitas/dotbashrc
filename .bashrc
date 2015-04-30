@@ -61,8 +61,6 @@ alias speedtest='wget --output-document=/dev/null http://speedtest.wdc01.softlay
 
 alias shell='./manage.py shell_plus --settings=settings.local'
 
-alias runserver='./manage.py runserver 192.168.1.29:8000'
-
 alias collectstatic='./manage.py collectstatic --settings=settings.local'
 
 # Alias to translate google
@@ -162,5 +160,15 @@ export DJANGO_SETTINGS_MODULE=''
 
 function suweb(){
     sudo -u "$1" -i /home/edvinas/switcher.sh
+}
+
+
+function runserver(){
+    if [ "$1" ]; then
+        ./manage.py runserver $1
+    else 
+        ./manage.py runserver 192.168.1.29:8000
+    fi
+
 }
 
