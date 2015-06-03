@@ -13,8 +13,8 @@ HISTCONTROL=ignoredups:ignorespace
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=3000
+HISTFILESIZE=4000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -172,3 +172,6 @@ function runserver(){
 
 }
 
+function get_backup(){
+    ssh -C $1 sudo -u postgres pg_dump --no-owner $2 > "$2".dump
+}
