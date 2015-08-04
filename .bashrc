@@ -86,6 +86,9 @@ alias www-data='sudo su - www-data'
 alias suweb='sudo su - '
 
 
+# Stats
+alias stats='dstat --cpu --io --mem --net --load --fs --vm --disk-util --disk-tps --freespace --swap --top-io --top-bio-adv'
+
 ###########
 # EXPORTS #
 ###########
