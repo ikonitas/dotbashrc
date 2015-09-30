@@ -170,7 +170,7 @@ function runserver(){
     if [ "$1" ]; then
         ./manage.py runserver $1
     else 
-        ./manage.py runserver 192.168.1.29:8000
+        ./manage.py runserver 127.0.0.1:8000
     fi
 
 }
