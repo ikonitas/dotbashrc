@@ -65,7 +65,7 @@ alias collectstatic='./manage.py collectstatic --settings=settings.local'
 
 # Alias to translate google
 # https://github.com/soimort/google-translate-cli
-alias tra="trans en:lt "
+alias tra="trans en:lt"
 
 # Use cat with colors pyhton-pygmentize should be installed.
 alias catc='pygmentize -g '
@@ -85,6 +85,8 @@ alias www-data='sudo su - www-data'
 # Switch to any user
 alias suweb='sudo su - '
 
+# Heroku backup 
+alias heroku_backup='curl -o latest.dump `heroku pg:backups public-url`'
 
 ###########
 # EXPORTS #
@@ -167,11 +169,16 @@ function runserver(){
     if [ "$1" ]; then
         ./manage.py runserver $1
     else 
-        ./manage.py runserver 192.168.1.29:8000
+        ./manage.py runserver 127.0.0.1:8000
     fi
 
 }
 
+# Get backup from server
 function get_backup(){
     ssh -C $1 sudo -u postgres pg_dump --no-owner $2 > "$2".dump
 }
+
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
