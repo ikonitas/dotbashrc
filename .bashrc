@@ -88,7 +88,6 @@ alias suweb='sudo su - '
 # Heroku backup 
 alias heroku_backup='curl -o latest.dump `heroku pg:backups public-url`'
 
->>>>>>> 1a032c8248cc0aa0b9d68f69913bad89e3e10c4c
 # Stats
 alias stats='dstat --cpu --io --mem --net --load --fs --vm --disk-util --disk-tps --freespace --swap --top-io --top-bio-adv'
 
