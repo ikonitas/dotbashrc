@@ -85,9 +85,10 @@ alias www-data='sudo su - www-data'
 # Switch to any user
 alias suweb='sudo su - '
 
-
 # Stats
 alias stats='dstat --cpu --io --mem --net --load --fs --vm --disk-util --disk-tps --freespace --swap --top-io --top-bio-adv'
+
+alias remove-pyc='find . -name "*.pyc" -exec rm -rf {} \;'
 
 ###########
 # EXPORTS #
@@ -99,7 +100,7 @@ export WORKON_HOME=/var/envs/
 # Projects home 
 export PROJECT_HOME=/var/www
 # Grep options
-export GREP_OPTIONS='--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=logs --exclude-dir=xapian --exclude-dir=media --exclude-dir=static --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
+export GREP_OPTIONS='--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=logs --exclude-dir=xapian --exclude-dir=media --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
 # Virtualenvwrapper bin directory
 export VIRTUALENVWRAPPER_HOOK_DIR=/var/envs/bin
 # To use 256 colors
@@ -178,3 +179,12 @@ function runserver(){
 function get_backup(){
     ssh -C $1 sudo -u postgres pg_dump --no-owner $2 > "$2".dump
 }
+
+function re_create_database(){
+    dropdb --if-exists $1
+    createdb $1
+    psql $1 < $2
+}
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
