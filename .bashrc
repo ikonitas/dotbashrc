@@ -95,7 +95,7 @@ alias stats='dstat --cpu --io --mem --net --load --fs --vm --disk-util --disk-tp
 alias remove-pyc='find . -name "*.pyc" -exec rm -rf {} \;'
 
 # Deploy changes
-alias fab='/var/envs/fabfile/bin/fab'
+alias fab='/usr/envs/fabfile/bin/fab'
 
 ###########
 # EXPORTS #
