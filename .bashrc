@@ -95,7 +95,7 @@ alias stats='dstat --cpu --io --mem --net --load --fs --vm --disk-util --disk-tp
 alias remove-pyc='find . -name "*.pyc" -exec rm -rf {} \;'
 
 # Deploy changes
-alias fab='/usr/envs/fabfile/bin/fab'
+alias fab='/var/envs/fabfile/bin/fab'
 
 ###########
 # EXPORTS #
@@ -137,7 +137,7 @@ GIT_PS1_SHOWUPSTREAM="auto"
 
 # Set PS1
 HOSTNAME=$(hostname)
-PS1='${debian_chroot:+($debian_chroot)}\[\033[1;32m\]\u@\[\033[1;36m\]\h \[\033[01;32m\]-> \[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
+PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u \[\033[1;37m\]at \[\033[1;31m\]\h \[\033[01;37m\]in \[\033[38;5;28m\]\w\[\033[1;31m\]$(__git_ps1 " (%s)")\n\[\033[1;37m\] \$\[\033[00m\] '
 if [ $HOSTNAME != "zatan" ] && [ $HOSTNAME != "ed" ] && [ $HOSTNAME != "edvinas-Z97-HD3" ]; then
     # Bold for servers
     PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u@\h\[\033[01;32m\]:\[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
