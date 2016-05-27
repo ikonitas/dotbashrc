@@ -95,7 +95,7 @@ alias stats='dstat --cpu --io --mem --net --load --fs --vm --disk-util --disk-tp
 alias remove-pyc='find . -name "*.pyc" -exec rm -rf {} \;'
 
 # Deploy changes
-alias fab='/usr/envs/fabfile/bin/fab'
+alias fab='/var/envs/fabfile/bin/fab'
 
 ###########
 # EXPORTS #
@@ -132,12 +132,13 @@ color_prompt=yes
 GIT_PS1_SHOWDIRTYSTATE='1'
 GIT_PS1_SHOWSTASHSTATE='1'
 GIT_PS1_SHOWUNTRACKEDFILES='1'
-GIT_PS1_SHOWCOLORHINTS=true
+GIT_PS1_SHOWCOLORHINTS='1'
+GIT_PS1_SHOWCOLORHINTS='1'
 GIT_PS1_SHOWUPSTREAM="auto"
 
 # Set PS1
 HOSTNAME=$(hostname)
-PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u \[\033[1;37m\]at \[\033[1;31m\]\h \[\033[01;37m\]in \[\033[38;5;28m\]\w\[\033[1;31m\]$(__git_ps1 " (%s)")\n\[\033[1;37m\] \$\[\033[00m\] '
+PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u \[\033[1;37m\]at \[\033[1;31m\]\h \[\033[01;37m\]in \[\033[38;5;28m\]\w\[\033[1;31m\]$(__git_ps1 " (%s)")\n\[\033[1;37m\] \$\[\033[00m\] ${venv}'
 if [ $HOSTNAME != "zatan" ] && [ $HOSTNAME != "ed" ] && [ $HOSTNAME != "edvinas-Z97-HD3" ]; then
     # Bold for servers
     PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u@\h\[\033[01;32m\]:\[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
@@ -194,5 +195,60 @@ function re_create_database(){
     psql $1 < $2
 }
 
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+RED_BOLD='\[\033[1;31m\]'
+WHITE_BOLD='\[\033[1;37m\]'
+YELLOW_BOLD='\[\033[1;33m\]'
+WHITE='\[\033[0;37m\]'
+GREEN_BOLD='\[\033[38;5;28m\]'
+GREY_COLOR='\[\033[00m\]'
+CYAN='\[\033[0;36m\]'
+LIGHT_GREEN='\[\033[38;5;119m\]'
+LIGHT_RED='\[\033[38;5;210m\]'
+CYAN='\[\e[0;36m\]'
+
+function set_prompt() {
+
+    # Virtualenv 
+    if [[ $VIRTUAL_ENV != "" ]]
+    then
+        venv="${WHITE}(${VIRTUAL_ENV##*/})"
+    else
+        venv=''
+    fi
+
+    # Branch colour
+    gitcheck_branch="$(git branch &>/dev/null; if [ $? -eq 0 ]; then echo "yes"; else echo "no"; fi)"
+    if [ $gitcheck_branch == "yes" ];
+        then
+            # If we are in a git repo, then check to see if there are uncommitted files
+            gitcheck_status="$(git status | grep "nothing to commit" > /dev/null 2>&1; if [ $? -eq 0 ]; then echo "clean"; else echo "unclean"; fi)"
+     
+    if [ $gitcheck_status == "clean" ];
+        then
+            # If there are no uncommitted files, then set the color of the git branch name to green
+            git_prompt=${LIGHT_GREEN}'$(__git_ps1)'
+        else
+            # If there are uncommitted files, set it to red.
+            # git_prompt='\[\033[0;37m\]$(__git_ps1)'
+            git_prompt=${LIGHT_RED}'$(__git_ps1)'
+        fi
+    else
+            # If we're not in a git repo, then display nothing
+        git_prompt=""
+    fi
+
+
+    user="${RED_BOLD}\u ${WHITE_BOLD}at "
+    hostname="${RED_BOLD}\h ${WHITE_BOLD}in "
+    current_dir="${GREEN_BOLD}\w"
+    prompt="\n${CYAN}└─${WHITE_BOLD}[\A]$ ${GREY_COLOR}"
+    export PS1="${CYAN}┌─${venv}${user}${hostname}${current_dir}${git_prompt}${prompt}"
+
+}
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+export PROMPT_COMMAND=set_prompt
