@@ -25,15 +25,6 @@ case "$TERM" in
     xterm-color) color_prompt=yes;;
 esac
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -136,23 +127,6 @@ GIT_PS1_SHOWCOLORHINTS='1'
 GIT_PS1_SHOWCOLORHINTS='1'
 GIT_PS1_SHOWUPSTREAM="auto"
 
-# Set PS1
-HOSTNAME=$(hostname)
-PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u \[\033[1;37m\]at \[\033[1;31m\]\h \[\033[01;37m\]in \[\033[38;5;28m\]\w\[\033[1;31m\]$(__git_ps1 " (%s)")\n\[\033[1;37m\] \$\[\033[00m\] ${venv}'
-if [ $HOSTNAME != "zatan" ] && [ $HOSTNAME != "ed" ] && [ $HOSTNAME != "edvinas-Z97-HD3" ]; then
-    # Bold for servers
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u@\h\[\033[01;32m\]:\[\033[0;37m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\] \$ '
-fi
-
-# Set title
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
 
 # Export display if it's not set.
 if ! [ "$DISPLAY" ]
@@ -246,9 +220,12 @@ function set_prompt() {
     hostname="${RED_BOLD}\h ${WHITE_BOLD}in "
     current_dir="${GREEN_BOLD}\w"
     prompt="\n${CYAN}└─${WHITE_BOLD}[\A]$ ${GREY_COLOR}"
-    export PS1="${CYAN}┌─${venv}${user}${hostname}${current_dir}${git_prompt}${prompt}"
+    title='\033]0;${PWD/$HOME/~}\007'
+    export PS1="${title}${CYAN}┌─${venv}${user}${hostname}${current_dir}${git_prompt}${prompt}"
 
 }
 
+# Disable virtualenv prompt as I set myself.
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 export PROMPT_COMMAND=set_prompt
