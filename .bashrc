@@ -186,6 +186,30 @@ CYAN='\[\e[0;36m\]'
 
 function set_prompt() {
 
+    # Set virtualenv automatically.
+    if [ -e "/var/envs" ]; then
+        current_directory=$(pwd -P)
+        regex='(\/var\/www\/(\w+))'
+
+        if [[ $current_directory =~ $regex ]]
+        then
+            project_name=${BASH_REMATCH[2]}
+        fi
+        
+        virtualenv_directory='/var/envs/'$project_name
+
+        echo $virtualenv_directory
+        if [[ -d $virtualenv_directory ]]; then
+
+            # Check to see if already activated to avoid redundant activating
+            if [ "$VIRTUAL_ENV" != virtualenv_directory ]; then
+                _VENV_NAME=$(basename `pwd`)
+                source $virtualenv_directory/bin/activate
+            fi
+        fi
+    fi
+
+
     # Virtualenv 
     if [[ $VIRTUAL_ENV != "" ]]
     then
