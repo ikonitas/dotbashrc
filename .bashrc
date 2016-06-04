@@ -195,16 +195,19 @@ function set_prompt() {
         then
             project_name=${BASH_REMATCH[2]}
         fi
-        
-        virtualenv_directory='/var/envs/'$project_name
 
-        echo $virtualenv_directory
-        if [[ -d $virtualenv_directory ]]; then
+        if [[ $project_name ]]
+        then
+            virtualenv_directory='/var/envs/'$project_name
 
-            # Check to see if already activated to avoid redundant activating
-            if [ "$VIRTUAL_ENV" != virtualenv_directory ]; then
-                _VENV_NAME=$(basename `pwd`)
-                source $virtualenv_directory/bin/activate
+            if [[ -d $virtualenv_directory ]]; then
+
+                # Check to see if already activated to avoid redundant activating
+                if [ "$VIRTUAL_ENV" != virtualenv_directory ]; then
+                    _VENV_NAME=$(basename `pwd`)
+                    source $virtualenv_directory/bin/activate
+                    source $virtualenv_directory/bin/postactivate
+                fi
             fi
         fi
     fi
