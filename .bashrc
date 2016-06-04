@@ -194,6 +194,8 @@ function set_prompt() {
         if [[ $current_directory =~ $regex ]]
         then
             project_name=${BASH_REMATCH[2]}
+        else
+            project_name=''
         fi
 
         if [[ $project_name ]]
