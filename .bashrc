@@ -198,7 +198,7 @@ function set_prompt() {
             project_name=''
         fi
 
-        if [ $project_name ] && [ $VIRTUAL_ENV ]
+        if [ $project_name ]
         then
             virtualenv_directory='/var/envs/'$project_name
 
@@ -207,8 +207,8 @@ function set_prompt() {
                 # Check to see if already activated to avoid redundant activating
                 if [ "$VIRTUAL_ENV" != virtualenv_directory ]; then
                     _VENV_NAME=$(basename `pwd`)
-                    source $virtualenv_directory/bin/activate
-                    source $virtualenv_directory/bin/postactivate
+                    source $virtualenv_directory/bin/activate > /dev/null 2>&1
+                    source $virtualenv_directory/bin/postactivate > /dev/null 2>&1
                 fi
             fi
         fi
@@ -225,9 +225,9 @@ function set_prompt() {
 
     if [[ $NODE_VIRTUAL_ENV != "" ]]
     then
-        venv="${WHITE}(${NODE_VIRTUAL_ENV##*/})"
+        nenv="${WHITE}(${NODE_VIRTUAL_ENV##*/})"
     else
-        venv=''
+        nenv=''
     fi
 
     # Branch colour
@@ -257,7 +257,7 @@ function set_prompt() {
     current_dir="${GREEN_BOLD}\w"
     prompt="\n${CYAN}└─${WHITE_BOLD}[\A]$ ${GREY_COLOR}"
     title='\033]0;${PWD/$HOME/~}\007'
-    export PS1="${title}${CYAN}┌─${venv}${user}${hostname}${current_dir}${git_prompt}${prompt}"
+    export PS1="${title}${CYAN}┌─${venv}${nenv}${user}${hostname}${current_dir}${git_prompt}${prompt}"
 
 }
 
