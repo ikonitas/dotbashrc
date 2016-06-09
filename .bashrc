@@ -198,7 +198,7 @@ function set_prompt() {
             project_name=''
         fi
 
-        if [[ $project_name ]]
+        if [ $project_name ] && [ $VIRTUAL_ENV ]
         then
             virtualenv_directory='/var/envs/'$project_name
 
@@ -219,6 +219,13 @@ function set_prompt() {
     if [[ $VIRTUAL_ENV != "" ]]
     then
         venv="${WHITE}(${VIRTUAL_ENV##*/})"
+    else
+        venv=''
+    fi
+
+    if [[ $NODE_VIRTUAL_ENV != "" ]]
+    then
+        venv="${WHITE}(${NODE_VIRTUAL_ENV##*/})"
     else
         venv=''
     fi
