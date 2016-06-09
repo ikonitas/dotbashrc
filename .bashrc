@@ -218,14 +218,14 @@ function set_prompt() {
     # Virtualenv 
     if [[ $VIRTUAL_ENV != "" ]]
     then
-        venv="${WHITE}(${VIRTUAL_ENV##*/})"
+        venv="${WHITE}(${VIRTUAL_ENV##*/}) "
     else
         venv=''
     fi
 
     if [[ $NODE_VIRTUAL_ENV != "" ]]
     then
-        nenv="${WHITE}(${NODE_VIRTUAL_ENV##*/})"
+        nenv="${WHITE}(${NODE_VIRTUAL_ENV##*/}) "
     else
         nenv=''
     fi
