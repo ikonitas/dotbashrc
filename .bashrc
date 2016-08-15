@@ -238,7 +238,7 @@ function set_prompt() {
     if [ $gitcheck_branch == "yes" ];
         then
             # If we are in a git repo, then check to see if there are uncommitted files
-            gitcheck_status="$(git status | grep "nothing to commit" > /dev/null 2>&1; if [ $? -eq 0 ]; then echo "clean"; else echo "unclean"; fi)"
+            "$(git status | grep "nothing to commit" > /dev/null 2>&1; if [ $? -eq 0 ]; then echo "clean"; else echo "unclean"; fi)"
      
     if [ $gitcheck_status == "clean" ];
         then
