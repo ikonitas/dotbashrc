@@ -91,16 +91,19 @@ alias fab='/var/envs/fabfile/bin/fab'
 ###########
 # EXPORTS #
 ###########
+
 # Exporting editor vim
 export EDITOR=vim
+
 # Virtualenvwrapper Home dir
 export WORKON_HOME=/var/envs/
+
 # Projects home 
 export PROJECT_HOME=/var/www
-# Grep options
-export GREP_OPTIONS='--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=logs --exclude-dir=xapian --exclude-dir=media --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
+
 # Virtualenvwrapper bin directory
 export VIRTUALENVWRAPPER_HOOK_DIR=/var/envs/bin
+
 # To use 256 colors
 export TERM=xterm-256color
 
@@ -261,7 +264,18 @@ function set_prompt() {
 
 }
 
+# Virtualenv
+. ~/dotbashrc/scripts/vte.sh
+
 # Disable virtualenv prompt as I set myself.
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-
 export PROMPT_COMMAND=set_prompt
+
+# Share your immediate bash history across multiple sessions
+export HISTCONTROL=ignoredups:erasedups  
+shopt -s histappend  
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+
+
+GREP_OPTIONS='--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=logs --exclude-dir=xapian --exclude-dir=media --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
+alias grep="/usr/bin/grep $GREP_OPTIONS"
