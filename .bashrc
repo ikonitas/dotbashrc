@@ -238,8 +238,8 @@ function set_prompt() {
     if [ $gitcheck_branch == "yes" ];
         then
             # If we are in a git repo, then check to see if there are uncommitted files
-            "$(git status | grep "nothing to commit" > /dev/null 2>&1; if [ $? -eq 0 ]; then echo "clean"; else echo "unclean"; fi)"
-     
+            gitcheck_status="$(git status | grep "nothing to commit" > /dev/null 2>&1; if [ $? -eq 0 ]; then echo "clean"; else echo "unclean"; fi)"
+
     if [ $gitcheck_status == "clean" ];
         then
             # If there are no uncommitted files, then set the color of the git branch name to green
@@ -278,4 +278,4 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; histor
 
 
 GREP_OPTIONS='--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=logs --exclude-dir=xapian --exclude-dir=media --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
-alias grep="/usr/bin/grep $GREP_OPTIONS"
+alias grep="/bin/grep $GREP_OPTIONS"
