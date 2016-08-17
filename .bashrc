@@ -279,3 +279,7 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; histor
 
 GREP_OPTIONS='--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=logs --exclude-dir=xapian --exclude-dir=media --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
 alias grep="/bin/grep $GREP_OPTIONS"
+
+
+# Install https://github.com/Anthony25/gnome-terminal-colors-solarized
+eval `dircolors ~/.dir_colors/dircolors`
