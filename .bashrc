@@ -283,3 +283,18 @@ alias grep="/bin/grep $GREP_OPTIONS"
 
 # Install https://github.com/Anthony25/gnome-terminal-colors-solarized
 eval `dircolors ~/.dir_colors/dircolors`
+
+export NVM_DIR="/home/edvinas/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# Color Terminal Man page.
+man() {
+    LESS_TERMCAP_mb=$'\e'"[1;31m" \
+    LESS_TERMCAP_md=$'\e'"[1;31m" \
+    LESS_TERMCAP_me=$'\e'"[0m" \
+    LESS_TERMCAP_se=$'\e'"[0m" \
+    LESS_TERMCAP_so=$'\e'"[1;44;33m" \
+    LESS_TERMCAP_ue=$'\e'"[0m" \
+    LESS_TERMCAP_us=$'\e'"[1;32m" \
+    command man "$@"
+}
