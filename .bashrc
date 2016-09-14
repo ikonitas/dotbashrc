@@ -5,6 +5,10 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# The current directory nevert reported to VTE terminix source vte.sh if it
+# doesn't exist ln -s /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
+source /etc/profile.d/vte.sh
+
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
 HISTCONTROL=ignoredups:ignorespace
@@ -298,3 +302,4 @@ man() {
     LESS_TERMCAP_us=$'\e'"[1;32m" \
     command man "$@"
 }
+
