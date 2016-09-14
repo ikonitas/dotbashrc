@@ -147,6 +147,11 @@ function chrome-search(){
  google-chrome http://www.google.co.uk/search?q="$1"
 }
 
+function git-remove-cache(){
+    git rm -r --cached .
+    git add .
+}
+
 # Default django settings moduke
 export DJANGO_SETTINGS_MODULE=''
 
