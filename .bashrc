@@ -17,8 +17,8 @@ HISTCONTROL=ignoredups:ignorespace
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=3000
-HISTFILESIZE=4000
+HISTSIZE=4000
+HISTFILESIZE=5000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -46,7 +46,7 @@ alias ll='ls -l'
 # Show active network listeners
 alias netlisteners='lsof -i -P | grep LISTEN'
 
-alias ack='ACK_PAGER_COLOR="less -x4SRFX" /usr/bin/ack-grep --color-filename=yellow --color-lineno=green --color-match=red --ignore-dir=requirements --ignore-dir=bower_components --ignore-dir=migrations --ignore-dir=.git --ignore-dir=media  --ignore-dir=staticfiles --ignore-dir=locale --ignore-dir=whoosh --ignore-file="match:.coverage" --ignore-file="match:coverage.xml" --ignore-dir=xapian --ignore-dir=static --ignore-dir=docs --ignore-dir=.tox --ignore-file=is:requirements.txt --ignore-file=ext:dump --ignore-file=is:pylint.report --type-set=DUMB="*.pyc" --nobreak --noenv -i -Q'
+alias ack='ACK_PAGER_COLOR="less -x4SRFX" /usr/bin/ack-grep --color-filename=yellow --color-lineno=green --color-match=red --ignore-dir=requirements --ignore-dir=bower_components --ignore-dir=migrations --ignore-dir=.git --ignore-dir=media  --ignore-dir=staticfiles --ignore-dir=locale --ignore-dir=whoosh --ignore-dir=htmlcov --ignore-file="match:.coverage" --ignore-file="match:coverage.xml" --ignore-dir=xapian --ignore-dir=static --ignore-dir=docs --ignore-dir=.tox --ignore-file=is:requirements.txt --ignore-file=ext:dump --ignore-file=is:pylint.report --type-set=DUMB="*.pyc" --nobreak --noenv -i -Q'
 
 # Password generator
 alias passwdgen='dd if=/dev/random bs=16 count=1 2>/dev/null | base64 | sed 's/=//g''
@@ -116,6 +116,7 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+
 ###########
 # SOURCES #
 ###########
@@ -172,8 +173,7 @@ function runserver(){
 
 # Get backup from server
 function get_backup(){
-    ssh -C $1 sudo -u postgres pg_dump --no-owner $2 > "$2".dump
-    psql $2 < '$2'.dump
+    ssh -C $1 sudo -u postgres pg_dump --no-owner $2 > $2.dump
 }
 
 function re_create_database(){
@@ -184,7 +184,7 @@ function re_create_database(){
 
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="/usr/local/heroku/bin:$PATH:$HOME/bins"
 
 RED_BOLD='\[\033[1;31m\]'
 WHITE_BOLD='\[\033[1;37m\]'
@@ -283,7 +283,6 @@ export HISTCONTROL=ignoredups:erasedups
 shopt -s histappend  
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
-
 GREP_OPTIONS='--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=logs --exclude-dir=xapian --exclude-dir=media --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
 alias grep="/bin/grep $GREP_OPTIONS"
 
@@ -293,6 +292,7 @@ eval `dircolors ~/.dir_colors/dircolors`
 
 export NVM_DIR="/home/edvinas/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
 
 # Color Terminal Man page.
 man() {
@@ -306,3 +306,7 @@ man() {
     command man "$@"
 }
 
+if [ -f "$HOME/bins/django_bash_completion" ]
+    then
+       . "$HOME/bins/django_bash_completion";
+fi
