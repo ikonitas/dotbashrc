@@ -11,7 +11,7 @@ source /etc/profile.d/vte.sh
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
+export HISTCONTROL=ignoreboth:ignoredups:ignorespace:erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -91,6 +91,12 @@ alias remove-pyc='find . -name "*.pyc" -exec rm -rf {} \;'
 
 # Deploy changes
 alias fab='/var/envs/fabfile/bin/fab'
+
+# Copy something pbcopy < ~/.ssh/id_rsa.pub or curl -Ss icanhazip.com | pbcopy
+alias pbcopy='xclip -selection clipboard'
+
+# Paste something pbpaste > main.go, append pbpaste >> main.go  or convert to base64 pbpaste | base64
+alias pbpaste='xclip -selection clipboard -o'
 
 ###########
 # EXPORTS #
@@ -279,7 +285,6 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PROMPT_COMMAND=set_prompt
 
 # Share your immediate bash history across multiple sessions
-export HISTCONTROL=ignoredups:erasedups  
 shopt -s histappend  
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
@@ -310,3 +315,6 @@ if [ -f "$HOME/bins/django_bash_completion" ]
     then
        . "$HOME/bins/django_bash_completion";
 fi
+
+# Enables i-search for reverse-search
+stty -ixon
