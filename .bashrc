@@ -40,6 +40,15 @@ fi
 ###########
 # ALIASES #
 ########### 
+
+function vim(){
+    if [ -f "$VIRTUAL_ENV/bin/python3.5" ]; then
+        vim.nox "$@"
+    else
+        /usr/bin/vim "$@"
+    fi
+}
+
 alias la='ls -A'
 alias l='ls -CF'
 alias ll='ls -l'
