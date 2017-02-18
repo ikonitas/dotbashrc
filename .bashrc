@@ -5,16 +5,20 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# The current directory nevert reported to VTE terminix source vte.sh if it
+# doesn't exist ln -s /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
+source /etc/profile.d/vte.sh
+
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
+export HISTCONTROL=ignoreboth:ignoredups:ignorespace:erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=3000
-HISTFILESIZE=4000
+HISTSIZE=4000
+HISTFILESIZE=5000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -36,13 +40,22 @@ fi
 ###########
 # ALIASES #
 ########### 
+
+function vim(){
+    if [ -f "$VIRTUAL_ENV/bin/python3.5" ]; then
+        vim.nox "$@"
+    else
+        /usr/bin/vim "$@"
+    fi
+}
+
 alias la='ls -A'
 alias l='ls -CF'
 alias ll='ls -l'
 # Show active network listeners
 alias netlisteners='lsof -i -P | grep LISTEN'
 
-alias ack='ACK_PAGER_COLOR="less -x4SRFX" /usr/bin/ack-grep --color-filename=yellow --color-lineno=green --color-match=red --ignore-dir=requirements --ignore-dir=bower_components --ignore-dir=migrations --ignore-dir=.git --ignore-dir=media  --ignore-dir=staticfiles --ignore-dir=locale --ignore-dir=whoosh --ignore-dir=xapian --ignore-dir=static --ignore-dir=docs --ignore-dir=.tox --ignore-file=is:requirements.txt --ignore-file=ext:dump --ignore-file=is:pylint.report --type-set=DUMB="*.pyc" --nobreak --noenv -i -Q'
+alias ack='ACK_PAGER_COLOR="less -x4SRFX" /usr/bin/ack-grep --color-filename=yellow --color-lineno=green --color-match=red --ignore-dir=requirements --ignore-dir=bower_components --ignore-dir=migrations --ignore-dir=.git --ignore-dir=media  --ignore-dir=staticfiles --ignore-dir=locale --ignore-dir=whoosh --ignore-dir=htmlcov --ignore-file="match:.coverage" --ignore-file="match:coverage.xml" --ignore-dir=xapian --ignore-dir=static --ignore-dir=docs --ignore-dir=.tox --ignore-file=is:requirements.txt --ignore-file=ext:dump --ignore-file=is:pylint.report --type-set=DUMB="*.pyc" --nobreak --noenv -i -Q'
 
 # Password generator
 alias passwdgen='dd if=/dev/random bs=16 count=1 2>/dev/null | base64 | sed 's/=//g''
@@ -95,6 +108,12 @@ alias remove-pyc='find . -name "*.pyc" -exec rm -rf {} \;'
 # Deploy changes
 alias fab='/var/envs/fabfile/bin/fab'
 
+# Copy something pbcopy < ~/.ssh/id_rsa.pub or curl -Ss icanhazip.com | pbcopy
+alias pbcopy='xclip -selection clipboard'
+
+# Paste something pbpaste > main.go, append pbpaste >> main.go  or convert to base64 pbpaste | base64
+alias pbpaste='xclip -selection clipboard -o'
+
 ###########
 # EXPORTS #
 ###########
@@ -118,6 +137,7 @@ export TERM=xterm-256color
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
+
 
 ###########
 # SOURCES #
@@ -175,7 +195,7 @@ function runserver(){
 
 # Get backup from server
 function get_backup(){
-    ssh -C $1 sudo -u postgres pg_dump --no-owner $2 > "$2".dump
+    ssh -C $1 sudo -u postgres pg_dump --no-owner $2 > $2.dump
 }
 
 function re_create_database(){
@@ -186,7 +206,7 @@ function re_create_database(){
 
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="/usr/local/heroku/bin:$PATH:$HOME/bins"
 
 RED_BOLD='\[\033[1;31m\]'
 WHITE_BOLD='\[\033[1;37m\]'
@@ -276,18 +296,13 @@ function set_prompt() {
 
 }
 
-# Virtualenv
-. ~/dotbashrc/scripts/vte.sh
-
 # Disable virtualenv prompt as I set myself.
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PROMPT_COMMAND=set_prompt
 
 # Share your immediate bash history across multiple sessions
-export HISTCONTROL=ignoredups:erasedups  
 shopt -s histappend  
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
-
 
 GREP_OPTIONS='--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=logs --exclude-dir=xapian --exclude-dir=media --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
 alias grep="/bin/grep $GREP_OPTIONS"
@@ -298,6 +313,7 @@ eval `dircolors ~/.dir_colors/dircolors`
 
 export NVM_DIR="/home/edvinas/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
 
 # Color Terminal Man page.
 man() {
@@ -310,3 +326,11 @@ man() {
     LESS_TERMCAP_us=$'\e'"[1;32m" \
     command man "$@"
 }
+
+if [ -f "$HOME/bins/django_bash_completion" ]
+    then
+       . "$HOME/bins/django_bash_completion";
+fi
+
+# Enables i-search for reverse-search
+stty -ixon
