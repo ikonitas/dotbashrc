@@ -43,7 +43,7 @@ fi
 
 function vim(){
     if [ -f "$VIRTUAL_ENV/bin/python3.5" ]; then
-        vim.nox "$@"
+        vim.athena "$@"
     else
         /usr/bin/vim "$@"
     fi
