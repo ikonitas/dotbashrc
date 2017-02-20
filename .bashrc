@@ -78,7 +78,14 @@ alias catc='pygmentize -g '
 alias removepyc='find . -name "*.pyc" -exec rm -rf {} \;'
 
 # Run SimpleHttpServer
-alias server='python -m SimpleHTTPServer 8070'
+server_http() {
+    if [ -z $1 ]; then
+        python -m SimpleHTTPServer 8070;
+    else 
+        python -m SimpleHTTPServer $1;
+    fi
+}
+
 
 # Display sizes
 alias duh='du -h|sort -hr'
