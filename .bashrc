@@ -5,10 +5,6 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# The current directory nevert reported to VTE terminix source vte.sh if it
-# doesn't exist ln -s /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
-source /etc/profile.d/vte.sh
-
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
 export HISTCONTROL=ignoreboth:ignoredups:ignorespace:erasedups
@@ -291,9 +287,9 @@ function set_prompt() {
     hostname="${RED_BOLD}\h ${WHITE_BOLD}in "
     current_dir="${GREEN_BOLD}\w"
     prompt="\n${CYAN}└─${WHITE_BOLD}[\A]$ ${GREY_COLOR}"
-    title='\033]0;${PWD/$HOME/~}\007'
+    title='\[\033]0;${PWD/$HOME/~}\007\]'
     VTE_PWD_THING="$(__vte_osc7)"
-    export PS1="${title}${CYAN}┌─${venv}${nenv}${user}${hostname}${current_dir}${git_prompt}${prompt}$VTE_PWD_THING"
+    export PS1="${title}${CYAN}┌─${venv}${nenv}${user}${hostname}${current_dir}${git_prompt}${prompt}${VTE_PWD_THING}"
 
 }
 
@@ -334,9 +330,19 @@ fi
 # Enables i-search for reverse-search
 stty -ixon
 
+# The current directory nevert reported to VTE terminix source vte.sh if it
+# doesn't exist ln -s /etc/profile.d/vte-2.91.sh /etc/profile.d/vte.sh
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-    source /etc/profile.d/vte.sh
+    source /etc/profile.d/vte-2.91.sh
 fi
+
+
+# Override this one from /etc/profile.d/vte-2.91.sh to escape colours bevause it causes overwriting.
+__vte_osc7 () {
+  printf "\[\033]7;file://%s%s\007\]" "${HOSTNAME:-}" "$(__vte_urlencode "${PWD}")"
+}
 
 export PROMPT_COMMAND=set_prompt
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+
+
