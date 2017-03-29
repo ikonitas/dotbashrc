@@ -292,17 +292,16 @@ function set_prompt() {
     current_dir="${GREEN_BOLD}\w"
     prompt="\n${CYAN}└─${WHITE_BOLD}[\A]$ ${GREY_COLOR}"
     title='\033]0;${PWD/$HOME/~}\007'
-    export PS1="${title}${CYAN}┌─${venv}${nenv}${user}${hostname}${current_dir}${git_prompt}${prompt}"
+    VTE_PWD_THING="$(__vte_osc7)"
+    export PS1="${title}${CYAN}┌─${venv}${nenv}${user}${hostname}${current_dir}${git_prompt}${prompt}$VTE_PWD_THING"
 
 }
 
 # Disable virtualenv prompt as I set myself.
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-export PROMPT_COMMAND=set_prompt
 
 # Share your immediate bash history across multiple sessions
 shopt -s histappend  
-export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 
 GREP_OPTIONS='--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=logs --exclude-dir=xapian --exclude-dir=media --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
 alias grep="/bin/grep $GREP_OPTIONS"
@@ -334,3 +333,10 @@ fi
 
 # Enables i-search for reverse-search
 stty -ixon
+
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+    source /etc/profile.d/vte.sh
+fi
+
+export PROMPT_COMMAND=set_prompt
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
