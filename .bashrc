@@ -35,10 +35,10 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 ###########
 # ALIASES #
-########### 
+###########
 
 function vim(){
-    if [ -f "$VIRTUAL_ENV/bin/python3.5" ]; then
+    if [ -f "$VIRTUAL_ENV/bin/python3.5" ] || [ -f "$VIRTUAL_ENV/bin/python3.6" ]; then
         vim.athena "$@"
     else
         /usr/bin/vim "$@"
@@ -77,7 +77,7 @@ alias removepyc='find . -name "*.pyc" -exec rm -rf {} \;'
 server_http() {
     if [ -z $1 ]; then
         python -m SimpleHTTPServer 8070;
-    else 
+    else
         python -m SimpleHTTPServer $1;
     fi
 }
@@ -92,7 +92,7 @@ alias www-data='sudo su - www-data'
 # Switch to any user
 alias suweb='sudo su - '
 
-# Heroku backup 
+# Heroku backup
 alias heroku_backup='curl -o latest.dump `heroku pg:backups public-url`'
 
 # Stats
@@ -120,7 +120,7 @@ export EDITOR=vim
 # Virtualenvwrapper Home dir
 export WORKON_HOME=/var/envs/
 
-# Projects home 
+# Projects home
 export PROJECT_HOME=/var/www
 
 # Virtualenvwrapper bin directory
@@ -129,7 +129,7 @@ export VIRTUALENVWRAPPER_HOOK_DIR=/var/envs/bin
 # To use 256 colors
 export TERM=xterm-256color
 
-# Enable bash completion       
+# Enable bash completion
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
@@ -183,7 +183,7 @@ function suweb(){
 function runserver(){
     if [ "$1" ]; then
         ./manage.py runserver $1
-    else 
+    else
         ./manage.py runserver 127.0.0.1:8000
     fi
 
@@ -246,7 +246,7 @@ function set_prompt() {
     fi
 
 
-    # Virtualenv 
+    # Virtualenv
     if [[ $VIRTUAL_ENV != "" ]]
     then
         venv="${WHITE}(${VIRTUAL_ENV##*/}) "
@@ -297,7 +297,7 @@ function set_prompt() {
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Share your immediate bash history across multiple sessions
-shopt -s histappend  
+shopt -s histappend
 
 GREP_OPTIONS='--exclude-dir=.git --exclude-dir=node_modules --exclude-dir=logs --exclude-dir=xapian --exclude-dir=media --exclude-dir=whoosh --exclude=*.pyc --exclude=*.swp'
 alias grep="/bin/grep $GREP_OPTIONS"
