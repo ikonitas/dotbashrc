@@ -71,7 +71,7 @@ alias tra="trans en:lt"
 alias catc='pygmentize -g '
 
 # Delete all pyc
-alias removepyc='find . -name "*.pyc" -exec rm -rf {} \;'
+alias removepyc='find . -name "*.pyc" -exec rm -rf {} \; && find -name "__pycache__" -prune -exec rm -rf {} \;'
 
 # Run SimpleHttpServer
 server_http() {
@@ -123,6 +123,7 @@ export WORKON_HOME=/var/envs/
 # Projects home
 export PROJECT_HOME=/var/www
 
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS="--python=/usr/bin/python3.5"
 # Virtualenvwrapper bin directory
 export VIRTUALENVWRAPPER_HOOK_DIR=/var/envs/bin
 
@@ -344,5 +345,3 @@ __vte_osc7 () {
 
 export PROMPT_COMMAND=set_prompt
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
-
-
